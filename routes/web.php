@@ -1,28 +1,20 @@
 <?php
 
+use App\Http\Livewire\BookForm;
+use App\Http\Livewire\BookShow;
+use App\Http\Livewire\BooksList;
+use App\Http\Livewire\CategoryForm;
+use App\Http\Livewire\CategoryList;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+//List of Books
+Route::get('/', BooksList::class)->name('home')->middleware('auth');
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/books/crear', BookForm::class)->name('books.create')->middleware('auth');
+Route::get('/books/{book}/edit', BookForm::class)->name('books.edit')->middleware('auth');
+Route::get('/show/{book}', BookShow::class)->name('books.show')->middleware('auth');
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified'
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-});
+Route::get('/categories', CategoryList::class)->name('categories.list')->middleware('auth');
+Route::get('/categories/crear', CategoryForm::class)->name('categories.create')->middleware('auth');
+Route::get('/categories/{category}/edit', CategoryForm::class)->name('categories.edit')->middleware('auth');
+

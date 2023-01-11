@@ -17,16 +17,21 @@ class Book extends Model
     category*
     published date*
     user (person that borrowed a book)*/
-    protected $fillable = ['name','published_date','status'];
+    protected $fillable = ['name','author','published_date','status'];
     use HasFactory;
 
-    public function category()
+    public function categories()
     {
         return $this->belongsToMany(Category::class);
     }
 
     public function user()
     {
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class);
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
     }
 }

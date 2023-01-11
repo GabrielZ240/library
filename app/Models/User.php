@@ -63,4 +63,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Book::class);
     }
+
+    public function isAdmin()
+    {
+        return auth()->user()->role == 'admin' ? true : false;
+    }
 }
